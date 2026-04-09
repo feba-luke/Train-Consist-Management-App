@@ -1,11 +1,20 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
+// === Bogie Class for UC7 ===
+class Bogie {
+    String name;
+    int capacity;
+
+    public Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + capacity + " seats)";
+    }
+}
 
 public class TrainManagementApp {
 
@@ -46,8 +55,8 @@ public class TrainManagementApp {
         bogieIds.add("BG101");
         bogieIds.add("BG102");
         bogieIds.add("BG103");
-        bogieIds.add("BG101"); // duplicate
-        bogieIds.add("BG102"); // duplicate
+        bogieIds.add("BG101");
+        bogieIds.add("BG102");
 
         System.out.println("\nBogie IDs after insertion (duplicates automatically removed):");
         System.out.println(bogieIds);
@@ -79,7 +88,7 @@ public class TrainManagementApp {
         System.out.println("\nFinal Ordered Train Consist:");
         System.out.println(orderedTrain);
 
-        // === UC5: Preserve Insertion Order & Uniqueness using LinkedHashSet ===
+        // === UC5: LinkedHashSet ===
 
         LinkedHashSet<String> trainFormation = new LinkedHashSet<>();
 
@@ -89,23 +98,44 @@ public class TrainManagementApp {
         trainFormation.add("Guard");
         trainFormation.add("Sleeper"); // duplicate
 
-        System.out.println("\nTrain Formation using LinkedHashSet (No duplicates, order preserved):");
+        System.out.println("\nTrain Formation (LinkedHashSet):");
         System.out.println(trainFormation);
 
-        // === UC6: Map Bogie to Capacity using HashMap ===
+        // === UC6: HashMap (Bogie → Capacity) ===
 
         HashMap<String, Integer> bogieCapacity = new HashMap<>();
 
-        // Add bogie-capacity mapping
         bogieCapacity.put("Sleeper", 72);
         bogieCapacity.put("AC Chair", 60);
         bogieCapacity.put("First Class", 24);
 
         System.out.println("\nBogie Capacity Details:");
-
-        // Iterate using entrySet()
         for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
             System.out.println("Bogie: " + entry.getKey() + " | Capacity: " + entry.getValue());
         }
+
+        // === UC7: Sort Bogies by Capacity using Comparator ===
+
+        List<Bogie> bogieList = new ArrayList<>();
+
+        // Create objects
+        bogieList.add(new Bogie("Sleeper", 72));
+        bogieList.add(new Bogie("AC Chair", 60));
+        bogieList.add(new Bogie("First Class", 24));
+
+        System.out.println("\nBefore Sorting:");
+        System.out.println(bogieList);
+
+        // Sort using Comparator (ascending order)
+        bogieList.sort(Comparator.comparingInt(b -> b.capacity));
+
+        System.out.println("\nAfter Sorting by Capacity (Ascending):");
+        System.out.println(bogieList);
+
+        // Optional: Descending order (real-world useful)
+        bogieList.sort((b1, b2) -> b2.capacity - b1.capacity);
+
+        System.out.println("\nAfter Sorting by Capacity (Descending):");
+        System.out.println(bogieList);
     }
 }
