@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -53,7 +54,6 @@ public class TrainManagementApp {
 
         LinkedList<String> orderedTrain = new LinkedList<>();
 
-        // Add bogies
         orderedTrain.add("Engine");
         orderedTrain.add("Sleeper");
         orderedTrain.add("AC");
@@ -63,21 +63,34 @@ public class TrainManagementApp {
         System.out.println("\nInitial Ordered Train Consist:");
         System.out.println(orderedTrain);
 
-        // Insert Pantry Car at position 2 (index starts from 0)
         orderedTrain.add(2, "Pantry Car");
 
         System.out.println("\nAfter inserting Pantry Car at position 2:");
         System.out.println(orderedTrain);
 
-        // Remove first and last bogie
         orderedTrain.removeFirst();
         orderedTrain.removeLast();
 
         System.out.println("\nAfter removing first and last bogie:");
         System.out.println(orderedTrain);
 
-        // Final output
         System.out.println("\nFinal Ordered Train Consist:");
         System.out.println(orderedTrain);
+
+        // === UC5: Preserve Insertion Order & Uniqueness using LinkedHashSet ===
+
+        LinkedHashSet<String> trainFormation = new LinkedHashSet<>();
+
+        // Add bogies
+        trainFormation.add("Engine");
+        trainFormation.add("Sleeper");
+        trainFormation.add("Cargo");
+        trainFormation.add("Guard");
+
+        // محاولة إضافة مكرر (duplicate)
+        trainFormation.add("Sleeper"); // duplicate
+
+        System.out.println("\nTrain Formation using LinkedHashSet (No duplicates, order preserved):");
+        System.out.println(trainFormation);
     }
 }
