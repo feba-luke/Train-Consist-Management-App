@@ -24,7 +24,6 @@ public class TrainManagementApp {
         // === UC1 ===
         System.out.println("=== Train Consist Management App ===");
         List<String> trainConsist = new ArrayList<>();
-        System.out.println("Initial bogies: " + trainConsist.size());
 
         // === UC2 ===
         trainConsist.add("Sleeper");
@@ -69,7 +68,7 @@ public class TrainManagementApp {
         bogieList.add(new Bogie("Sleeper", 72));
         bogieList.add(new Bogie("AC Chair", 60));
         bogieList.add(new Bogie("First Class", 24));
-        bogieList.add(new Bogie("Sleeper", 72)); // duplicate type for grouping demo
+        bogieList.add(new Bogie("Sleeper", 72)); // duplicate for grouping
 
         bogieList.sort(Comparator.comparingInt(b -> b.capacity));
 
@@ -84,18 +83,25 @@ public class TrainManagementApp {
         System.out.println("\nFiltered Bogies (Capacity > 60):");
         System.out.println(filteredBogies);
 
-        // === UC9: Grouping ===
-
+        // === UC9 ===
         Map<String, List<Bogie>> groupedBogies = bogieList.stream()
                 .collect(Collectors.groupingBy(b -> b.name));
 
-        System.out.println("\nGrouped Bogies by Type:");
-
+        System.out.println("\nGrouped Bogies:");
         for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
             System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
 
-        // Original list remains unchanged
+        // === UC10: Total Capacity using reduce() ===
+
+        int totalCapacity = bogieList.stream()
+                .map(b -> b.capacity)          // extract capacity
+                .reduce(0, Integer::sum);      // aggregate (sum)
+
+        System.out.println("\nTotal Seating Capacity of Train:");
+        System.out.println(totalCapacity);
+
+        // Verify original list unchanged
         System.out.println("\nOriginal Bogie List (Unchanged):");
         System.out.println(bogieList);
     }
