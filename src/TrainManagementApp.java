@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class TrainManagementApp {
@@ -81,16 +83,29 @@ public class TrainManagementApp {
 
         LinkedHashSet<String> trainFormation = new LinkedHashSet<>();
 
-        // Add bogies
         trainFormation.add("Engine");
         trainFormation.add("Sleeper");
         trainFormation.add("Cargo");
         trainFormation.add("Guard");
-
-        // محاولة إضافة مكرر (duplicate)
         trainFormation.add("Sleeper"); // duplicate
 
         System.out.println("\nTrain Formation using LinkedHashSet (No duplicates, order preserved):");
         System.out.println(trainFormation);
+
+        // === UC6: Map Bogie to Capacity using HashMap ===
+
+        HashMap<String, Integer> bogieCapacity = new HashMap<>();
+
+        // Add bogie-capacity mapping
+        bogieCapacity.put("Sleeper", 72);
+        bogieCapacity.put("AC Chair", 60);
+        bogieCapacity.put("First Class", 24);
+
+        System.out.println("\nBogie Capacity Details:");
+
+        // Iterate using entrySet()
+        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
+            System.out.println("Bogie: " + entry.getKey() + " | Capacity: " + entry.getValue());
+        }
     }
 }
